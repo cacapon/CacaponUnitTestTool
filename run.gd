@@ -2,45 +2,56 @@ extends SceneTree
 
 
 func _init():
-	var result = CacaponUnitTestTotalInfo.new(ProjectSettings.globalize_path("res://"))
+	var result = {
+		"root_dir"	: ProjectSettings.globalize_path("res://"),
+		"passed"	: 0,
+		"failed"	: 0,
+		"results"	: [],
+		"summary"	: [],
+	}
 	var file_paths = get_test_files("res://tests/")
 	for file_path in file_paths:
 		var _result := call_tests(file_path)
-		result.passed += _result.passed
-		result.failed += _result.failed
-		result.results.append(_result.output())
-		result.summary.append_array((_result.summary))
-		_result.free()
+		result["passed"] += _result["passed"]
+		result["failed"] += _result["failed"]
+		result["results"].append("%s \t {[color=green]PASSED:%d[/color],\t[color=red]FAILED:%d[/color]}" % [_result["file_path"], _result["passed"], _result["failed"]])
+		result.summary.append_array(_result.summary)
 	var _log = load("res://log_view.gd").new()
 	_log.show(result)
-	result.free()
 	_log.free()
 	quit()
 
-func call_tests(file_path:String) -> CacaponUnitTestAggregationInfo:
+
+func call_tests(file_path:String) -> Dictionary:
 	# TODO:Thread実行に変えたい
-	var _agg_result = CacaponUnitTestAggregationInfo.new(file_path)
+	var _agg_result = {
+		"file_path"	: file_path,
+		"passed"	: 0,
+		"failed"	: 0,
+		"summary"	: [],
+	}
 	var _ins = load(file_path).new()
 	var func_list :Array[Dictionary] = _ins.get_method_list()
 	for function in func_list:
 		var name = function.get("name") as String
-		var _assert_info = call_test(_ins, name) as CacaponUnitTestAssertInfo
-		if not _assert_info:
+		var _assert_info = call_test(_ins, name)
+		if _assert_info.is_empty():
 			continue
 		if _assert_info.status:
-			_agg_result.passed += 1
+			_agg_result["passed"] += 1
 		else:
-			_agg_result.failed += 1
-			_agg_result.set_summary(_assert_info.func_name, _assert_info.info)
-		_assert_info.free()
+			_agg_result["failed"] += 1
+			_agg_result["summary"].append([file_path, _assert_info["func_name"], _assert_info["info"]])
 	_ins.free()
 	return _agg_result
 
-func call_test(instance:SceneTree, method_name:String)-> CacaponUnitTestAssertInfo:
+
+## return: {}
+func call_test(instance:SceneTree, method_name:String)-> Dictionary:
 	if not method_name.begins_with("test_"):
-		return
+		return {}
 	var _call = Callable(instance, method_name)
-	return _call.call() as CacaponUnitTestAssertInfo
+	return _call.call() as Dictionary
 
 
 func get_test_files(path) -> Array[String]:
