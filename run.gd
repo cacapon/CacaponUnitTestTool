@@ -16,14 +16,13 @@ func _init():
 		result["failed"] += _result["failed"]
 		result["results"].append("%s \t {[color=green]PASSED:%d[/color],\t[color=red]FAILED:%d[/color]}" % [_result["file_path"], _result["passed"], _result["failed"]])
 		result.summary.append_array(_result.summary)
-	var _log = load("res://log_view.gd").new()
+	var _log = load("res://scripts/log_view.gd").new()
 	_log.show(result)
 	_log.free()
 	quit()
 
 
 func call_tests(file_path:String) -> Dictionary:
-	# TODO:Thread実行に変えたい
 	var _agg_result = {
 		"file_path"	: file_path,
 		"passed"	: 0,

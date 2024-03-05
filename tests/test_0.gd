@@ -12,4 +12,4 @@ func test_03() -> Dictionary:
 	return assert_eq(randi_range(0,1), randi_range(0,1))
 
 func test_04() -> Dictionary:
-	return assert_eq(randi_range(0,1), randi_range(0,1))
+	return assert_not_eq(randi_range(0,1), randi_range(0,1))
