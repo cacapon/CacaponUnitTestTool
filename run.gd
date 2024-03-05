@@ -47,9 +47,10 @@ func call_tests(file_path:String) -> Dictionary:
 
 
 ## return: {}
-func call_test(instance:SceneTree, method_name:String)-> Dictionary:
+func call_test(instance:CacaponUnitTest, method_name:String)-> Dictionary:
 	if not method_name.begins_with("test_"):
 		return {}
+	instance.active_function = method_name
 	var _call = Callable(instance, method_name)
 	return _call.call() as Dictionary
 
