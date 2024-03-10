@@ -7,18 +7,33 @@ func show(result:Dictionary):
 	print_rich(_output)
 
 func create_session_starts(result:Dictionary) ->String:
+	#ex:
+	# ============================= test session starts ==============================
+	# rootdir: /Users/cacapon-project/workspace/Godot4/CacaponUnitTestTool/
+	# collected 3 items
+	#
+	# res://tests/test_sample.gd 	PASSED:2 FAILED:1
 	var _template := ""
 	_template += center_fill("test session starts") +"\n"
 	_template += "rootdir: %s" %result["root_dir"] +"\n"
 	_template += "collected %d items" % (result["passed"] + result["failed"]) + "\n\n"
 
+	var _passed_tmp := "[color=green]PASSED:%d[/color] "
+	var _failed_tmp := "[color=red]FAILED:%d[/color] "
+
 	result.results.sort()
 	for test_result in result["results"]:
-		_template += test_result + "\n"
-
+		_template += "%s \t" % test_result[0]
+		if test_result[1] != 0:
+			_template += _passed_tmp % test_result[1]
+		if test_result[2] != 0:
+			_template += _failed_tmp % test_result[2]
+		_template += "\n"
 	return _template
 	
 func create_short_summary(result:Dictionary) ->String:
+	# ex: =========================== short test summary info ============================
+	# ex: FAILED res://tests/test_sample.gd:: - assert foo != foo
 	if result["summary"].is_empty():
 		return ""
 	var _template := "[color=blue]" + center_fill("short test summary info") + "[/color]" + "\n"
@@ -30,7 +45,19 @@ func create_short_summary(result:Dictionary) ->String:
 	return _template
 	
 func create_fotter(result:Dictionary) -> String:
-	var mes = "[color=green]%d passed[/color], [color=red]%d failed[/color]" %[result["passed"], result["failed"]]
+	# ex: ============================== 2 passed, 1 failed ==============================
+	var mes = ""
+	var _passed_tmp := "[color=green]%d passed[/color] "
+	var _failed_tmp := "[color=red]%d failed[/color] "
+
+	if result["passed"] != 0:
+		mes += _passed_tmp % result["passed"]
+	if result["failed"] != 0:
+		mes += _failed_tmp % result["failed"]
+
+	# 末尾空白トリミング
+	mes = mes.trim_suffix(" ")
+
 	return center_fill(mes)
 
 

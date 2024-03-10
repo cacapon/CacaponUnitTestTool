@@ -14,7 +14,7 @@ func _init():
 		var _result := call_tests(file_path)
 		result["passed"] += _result["passed"]
 		result["failed"] += _result["failed"]
-		result["results"].append("%s \t {[color=green]PASSED:%d[/color],\t[color=red]FAILED:%d[/color]}" % [_result["file_path"], _result["passed"], _result["failed"]])
+		result["results"].append([_result["file_path"], _result["passed"], _result["failed"]])
 		result.summary.append_array(_result.summary)
 	var _log = load("res://scripts/log_view.gd").new()
 	_log.show(result)
