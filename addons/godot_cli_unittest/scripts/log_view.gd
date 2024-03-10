@@ -1,3 +1,4 @@
+class_name GodotCLIUnitTestLogView
 extends SceneTree
 
 func show(result:Dictionary):

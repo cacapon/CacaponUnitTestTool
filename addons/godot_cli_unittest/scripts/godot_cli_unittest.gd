@@ -1,4 +1,4 @@
-class_name CacaponUnitTest
+class_name GodotCLIUnittest
 extends SceneTree
 
 var _active_function := ""

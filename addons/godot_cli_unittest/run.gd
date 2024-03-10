@@ -16,7 +16,7 @@ func _init():
 		result["failed"] += _result["failed"]
 		result["results"].append([_result["file_path"], _result["passed"], _result["failed"]])
 		result.summary.append_array(_result.summary)
-	var _log = load("res://scripts/log_view.gd").new()
+	var _log = GodotCLIUnitTestLogView.new()
 	_log.show(result)
 	_log.free()
 	quit()
@@ -46,7 +46,7 @@ func call_tests(file_path:String) -> Dictionary:
 
 
 ## return: {}
-func call_test(instance:CacaponUnitTest, method_name:String)-> Dictionary:
+func call_test(instance:GodotCLIUnittest, method_name:String)-> Dictionary:
 	if not method_name.begins_with("test_"):
 		return {}
 	instance.active_function = method_name
