@@ -40,7 +40,7 @@ func call_tests(file_path:String) -> Dictionary:
 			_agg_result["passed"] += 1
 		else:
 			_agg_result["failed"] += 1
-			_agg_result["summary"].append([file_path, _assert_info["func_name"], _assert_info["info"]])
+			_agg_result["summary"].append([file_path.get_file(), _assert_info["func_name"], _assert_info["info"]])
 	_ins.free()
 	return _agg_result
 

@@ -42,7 +42,7 @@ func create_short_summary(result:Dictionary) ->String:
 	result.summary.sort()
 	for summary in result.summary:
 		var formatted_summary = ""
-		_template += "[color=red]FAILED[/color] %s::%s - %s"% summary + "\n"
+		_template += "[color=red]F[/color]: %s::%s - %s"% summary + "\n"
 	return _template
 	
 func create_fotter(result:Dictionary) -> String:

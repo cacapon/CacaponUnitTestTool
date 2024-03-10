@@ -28,7 +28,7 @@ func _assert_base(_input:Variant, _expected:Variant, operator:bool) -> Dictionar
 		var _expected_type 	:= type_string(typeof(_expected))
 		return _create_unittest_data(
 			false,
-			"_input:%s != _expected:%s" %[_input_type , _expected_type]
+			"type_unmatch: %s and %s" %[_input_type , _expected_type]
 		)
 
 	# assert
@@ -37,7 +37,7 @@ func _assert_base(_input:Variant, _expected:Variant, operator:bool) -> Dictionar
 
 	if not status:
 		# 比較が不一致だった場合にエラーメッセージを生成する
-		info = "assert %s %s= %s" %[_input, ("=" if operator else "!") ,_expected]
+		info = "assert: %s %s= %s" %[_input, ("=" if operator else "!") ,_expected]
 
 	return	_create_unittest_data(status, info)
 
