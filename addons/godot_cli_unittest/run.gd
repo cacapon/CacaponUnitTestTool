@@ -64,7 +64,7 @@ func get_test_files(path) -> Array[String]:
 			if dir.current_is_dir():
 				print("Found directory: " + file_name)
 			else:
-				if file_name.begins_with("test_"):
+				if file_name.begins_with("test_") and file_name.ends_with(".gd"):
 					arr.append(path + file_name)
 			file_name = dir.get_next()
 	else:
