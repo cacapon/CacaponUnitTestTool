@@ -8,9 +8,20 @@ var active_function :String:
 	set(value):
 		_active_function = value + "()"
 
-## _input と　_expectedで比較します[br]
+
+## _input と　_expectedで一致するか比較します[br]
 ## return {"func_name":String, "status":bool, "info":String}
 func assert_eq(_input:Variant, _expected:Variant) -> Dictionary:
+	return _assert_base(_input, _expected, true)
+
+
+## _input と　_expectedで一致しないか比較します[br]
+## return {"func_name":String, "status":bool, "info":String}
+func assert_not_eq(_input:Variant, _expected:Variant) -> Dictionary:
+	return _assert_base(_input, _expected, false)
+
+
+func _assert_base(_input:Variant, _expected:Variant, operator:bool) -> Dictionary:
 	# type check
 	if typeof(_input) != typeof(_expected):
 		var _input_type 	:= type_string(typeof(_input))
@@ -20,24 +31,16 @@ func assert_eq(_input:Variant, _expected:Variant) -> Dictionary:
 			"_input:%s != _expected:%s" %[_input_type , _expected_type]
 		)
 
-	return 	_create_unittest_data(
-		_input == _expected, 
-		"assert %s == %s" %[_input, _expected] if not _input == _expected else ""
-	)
+	# assert
+	var status 	:bool = operator == (_input == _expected) # ==か!=かをoperatorで判定している
+	var info 	:= ""
 
-func assert_not_eq(_input:Variant, _expected:Variant) -> Dictionary:
-	if typeof(_input) != typeof(_expected):
-		var _input_type 	:= type_string(typeof(_input))
-		var _expected_type 	:= type_string(typeof(_expected))
-		return _create_unittest_data(
-			false,
-			"_input:%s != _expected:%s" %[_input_type , _expected_type]
-		)
+	if not status:
+		# 比較が不一致だった場合にエラーメッセージを生成する
+		info = "assert %s %s= %s" %[_input, ("=" if operator else "!") ,_expected]
 
-	return 	_create_unittest_data(
-		_input != _expected,
-		"assert %s != %s" %[_input, _expected] if not _input != _expected else "",
-	)
+	return	_create_unittest_data(status, info)
+
 
 func _create_unittest_data(status:bool,info:String)-> Dictionary:
 	var _dict = {
