@@ -1,4 +1,4 @@
-# CacaponUnitTestTool
+# GodotCLIUnitTest
 Godot4向けCLI用ユニットテストライブラリ
 ※ MacOSでの確認のみ実施　
 
@@ -18,7 +18,7 @@ Godot4向けCLI用ユニットテストライブラリ
 成功時
 ``` sh
 ============================= test session starts ==============================
-rootdir: /Users/cacapon-project/workspace/Godot4/CacaponUnitTestTool/
+rootdir: /Users/cacapon-project/workspace/Godot4/GodotCLIUnitTest/
 collected 1 items
 
 res://tests/test_sample.gd 	PASSED:1
@@ -28,7 +28,7 @@ res://tests/test_sample.gd 	PASSED:1
 失敗時
 ```
 ============================= test session starts ==============================
-rootdir: /Users/cacapon-project/workspace/Godot4/CacaponUnitTestTool/
+rootdir: /Users/cacapon-project/workspace/Godot4/GodotCLIUnitTest/
 collected 2 items
 
 res://tests/test_sample.gd 	PASSED:1 FAILED:1
