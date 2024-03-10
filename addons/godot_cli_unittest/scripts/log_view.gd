@@ -10,7 +10,7 @@ func show(result:Dictionary):
 func create_session_starts(result:Dictionary) ->String:
 	#ex:
 	# ============================= test session starts ==============================
-	# rootdir: /Users/cacapon-project/workspace/Godot4/CacaponUnitTestTool/
+	# rootdir: /Users/cacapon-project/workspace/Godot4/Example/
 	# collected 3 items
 	#
 	# res://tests/test_sample.gd 	PASSED:2 FAILED:1
