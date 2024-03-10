@@ -6,7 +6,7 @@ var active_function :String:
 	get:
 		return _active_function
 	set(value):
-		active_function = value
+		_active_function = value + "()"
 
 ## _input と　_expectedで比較します[br]
 ## return {"func_name":String, "status":bool, "info":String}
