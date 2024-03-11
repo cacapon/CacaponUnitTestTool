@@ -19,7 +19,7 @@ func _init():
 	var _log = GodotCLIUnitTestLogView.new()
 	_log.show(result)
 	_log.free()
-	quit()
+	quit(_get_exit_code(result["failed"]))
 
 
 func call_tests(file_path:String) -> Dictionary:
@@ -70,4 +70,6 @@ func get_test_files(path) -> Array[String]:
 	else:
 		print("An error occurred when trying to access the path.")
 	return arr
-	
+
+func _get_exit_code(failed_count:int) -> int:
+	return 0 if failed_count == 0 else 1
