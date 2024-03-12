@@ -22,7 +22,7 @@ func create_session_starts(result:Dictionary) ->String:
 	var _passed_tmp := "[color=green]PASSED:%d[/color] "
 	var _failed_tmp := "[color=red]FAILED:%d[/color] "
 
-	result.results.sort()
+	#result.results.sort()
 	for test_result in result["results"]:
 		_template += "%s \t" % test_result[0]
 		if test_result[1] != 0:
