@@ -7,7 +7,7 @@ Godot4向けCLI用ユニットテストライブラリ
 	- EditorPluginではないので有効化できません。
 1. プロジェクト直下に`test/`ディレクトリを作ってください
 1. test_sample.gdを参考に `test_<任意の名前>.gd`スクリプトを作成してください
-1. コマンドラインから`<Godot Engineのパス> -s addons/godot_cli_unittest/run.gd --headless`を実行してください
+1. コマンドラインから`<Godot Engineのパス> -s　--path　<Projectのパス> addons/godot_cli_unittest/run.gd --headless`を実行してください
 1. 次の条件に含まれるメソッドが実行されtest結果が表示されます
 	- `test/`以下に存在するスクリプトであること
 	- ファイル名が`test_`から始まるgdスクリプトであること
